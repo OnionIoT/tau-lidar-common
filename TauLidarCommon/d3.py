@@ -4,7 +4,7 @@ from ctypes import Structure, c_uint, c_ushort, c_uint8, c_uint16
 import math
 
 from .color import ColorMode, Color
-from .frame import Frame
+from .frame import FrameType, Frame
 
 MASK_OUT_CONFIDENCE        = 0x3FFF                        ## 635 IMAGE CONFIDENCE MASK
 
@@ -194,7 +194,34 @@ class FrameBuilder:
     def setRange(self, z1, z2):
         self._imageColorizer.setRange(z1, z2)
 
-    def composeFrame(self, dataArray) :
+    def composeFrame(self, dataArray, frameType) :
+        '''
+        compose Frame using raw bytearray data
+        '''
+
+        if frameType == FrameType.DISTANCE_GRAYSCALE:
+            return self.composeDistanceGrayscaleFrame(dataArray)
+
+        if frameType == FrameType.DISTANCE_AMPLITUDE:
+            return self.composeDistanceAmplitudeFrame(dataArray)
+
+        if frameType == FrameType.DISTANCE:
+            return self.composeDistanceFrame(dataArray)
+
+
+    def composeDistanceAmplitudeFrame(self, dataArray) :
+        '''
+        compose Frame using raw bytearray data
+        '''
+        return None
+
+    def composeDistanceFrame(self, dataArray) :
+        '''
+        compose Frame using raw bytearray data
+        '''
+        return None
+
+    def composeDistanceGrayscaleFrame(self, dataArray) :
         '''
         compose Frame using raw bytearray data
         '''

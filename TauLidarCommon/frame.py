@@ -1,4 +1,14 @@
 
+from enum import Enum
+
+class FrameType(Enum):
+    '''
+    FrameType Enum
+    '''
+    DISTANCE  = 0           ## frame with distance only
+    DISTANCE_GRAYSCALE = 1  ## frame with distance and grayscale
+    DISTANCE_AMPLITUDE = 1  ## frame with distance and amplitude
+
 class Frame :
     '''
     3D Frame data including distance and grayscale.
