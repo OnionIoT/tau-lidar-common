@@ -285,7 +285,7 @@ class FrameBuilder:
 
                     X = Z / math.tan(gamma_i_h)
                     Y = -1 * Z * math.tan(gamma_i_v)
-                    print(Z)
+                    
                     data_points.append([X, Y, Z, r, g, b])
 
             saturated_mask.append(saturated_mask_v)
