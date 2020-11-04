@@ -7,7 +7,7 @@ class FrameType(Enum):
     '''
     DISTANCE  = 0           ## frame with distance only
     DISTANCE_GRAYSCALE = 1  ## frame with distance and grayscale
-    DISTANCE_AMPLITUDE = 1  ## frame with distance and amplitude
+    DISTANCE_AMPLITUDE = 2  ## frame with distance and amplitude
 
 class Frame :
     '''
@@ -33,11 +33,12 @@ class Frame :
     points_3d: 
         3D points: list of unorganized 3D points. 
     '''
-    def __init__(self, _height, _width, _data_depth, _data_depth_rgb, _data_grayscale, _points_3d, _data) :
+    def __init__(self, _height, _width, _data_depth, _data_depth_rgb, _data_grayscale, _data_amplitude, _points_3d, _data) :
         self.height           = _height
         self.width            = _width
         self.data_depth       = _data_depth
         self.data_depth_rgb   = _data_depth_rgb
         self.data_grayscale   = _data_grayscale
+        self.data_amplitude   = _data_amplitude
         self.points_3d = _points_3d
         self._data = _data
