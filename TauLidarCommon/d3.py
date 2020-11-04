@@ -1,6 +1,6 @@
 import array as arr
 
-from ctypes import Structure, c_uint, c_ushort, c_uint8, c_uint16
+from ctypes import Structure, c_uint, c_ushort, c_uint8, c_uint16, c_uint32
 import math
 
 from .color import ColorMode, Color
@@ -168,13 +168,17 @@ class ImageColorizer :
 
         return c
 
+class _PointDistanceMasked(Structure):
+    _pack_ = 1
+    _fields_ = [("distance", c_uint16)]
+
 class _PointDistanceGrayscaleMasked(Structure):
     _pack_ = 1
     _fields_ = [("grayscale", c_uint8), ("distance", c_uint16)]
 
 class _PointDistanceAmplitudeMasked(Structure):
     _pack_ = 1
-    _fields_ = [("amplitude", c_uint16), ("distance", c_uint16)]
+    _fields_ = [("distanceAmplitude", c_uint32)]
 
 ANGLE_X      = 50.0
 ANGLE_Y      = 18.75
@@ -219,7 +223,7 @@ class FrameBuilder:
         '''
         
         len_bytes = len(dataArray)
-        if len_bytes < 28800:
+        if len_bytes < 38400:
             print("Bad frame ignored, bytes length: %d" % len_bytes)
             return None
 
@@ -242,8 +246,8 @@ class FrameBuilder:
             x = i_data_point % 160
             y = int(i_data_point / 160)
 
-            distance = _p.distance  & MASK_OUT_CONFIDENCE
-            amplitude = _p.amplitude & MASK_OUT_CONFIDENCE
+            distance = _p.distanceAmplitude  & 0xFFFF
+            amplitude = _p.distanceAmplitude  >> 16
 
             X = float("NaN")
             Y = float("NaN")
@@ -281,13 +285,12 @@ class FrameBuilder:
 
                     X = Z / math.tan(gamma_i_h)
                     Y = -1 * Z * math.tan(gamma_i_v)
-
+                    print(Z)
                     data_points.append([X, Y, Z, r, g, b])
 
             saturated_mask.append(saturated_mask_v)
 
             data_depth_raw.append(Z)
-            data_grayscale.append(0)
             data_amplitude.append(amplitude)
             data_depth_rgb.extend([c.b, c.g, c.r])
 
@@ -299,7 +302,83 @@ class FrameBuilder:
         '''
         compose Frame using raw bytearray data
         '''
-        return None
+        
+        len_bytes = len(dataArray)
+        if len_bytes < 19200:
+            print("Bad frame ignored, bytes length: %d" % len_bytes)
+            return None
+
+        height = 60
+        width  = 160
+
+        data_depth_raw   = arr.array('f', [])
+        data_grayscale   = arr.array('h', [])
+        data_amplitude   = arr.array('f', [])
+        data_depth_rgb   = arr.array('h', [])
+        saturated_mask   = arr.array('h', [])
+
+        data_points = []
+
+        _PointMasked9600 = 9600 * _PointDistanceMasked
+        _points = _PointMasked9600.from_buffer(dataArray)
+
+        i_data_point = 0
+        for _p in _points:
+            x = i_data_point % 160
+            y = int(i_data_point / 160)
+
+            distance = _p.distance  & MASK_OUT_CONFIDENCE
+
+            X = float("NaN")
+            Y = float("NaN")
+            Z = float("NaN")
+            rgb = r = g = b = float("NaN")
+
+            saturated_mask_v = 0
+            c = self._imageColorizer.getColor(distance)
+
+            if(
+                distance < VALUE_LIMIT_VALID_PIXEL
+                or
+                distance == VALUE_ADC_OVERFLOW
+                or
+                distance == VALUE_SATURATION
+            ):
+                if (
+                    distance == VALUE_ADC_OVERFLOW
+                    or
+                    distance == VALUE_SATURATION
+                ):
+                    saturated_mask_v = 255
+                else:
+                    if self._colorMode == ColorMode.GRAYSCALE:
+                        r = g = b = grayscale
+                    else:
+                        r = c.r
+                        g = c.g
+                        b = c.b
+
+                    rgb = r << 16 | g << 8 | b
+
+                    gamma_i_h = ALPHA_H + x * (THETA_H / width)
+                    gamma_i_v = ALPHA_V + y * (THETA_V / height)
+
+                    Z = abs(0.001 * distance * math.sin(gamma_i_h))
+                    Z = abs(Z * math.cos(gamma_i_v))
+
+                    X = Z / math.tan(gamma_i_h)
+                    Y = -1 * Z * math.tan(gamma_i_v)
+
+                    data_points.append([X, Y, Z, r, g, b])
+
+            saturated_mask.append(saturated_mask_v)
+
+            data_depth_raw.append(Z)
+            data_depth_rgb.extend([c.b, c.g, c.r])
+
+            i_data_point += 1
+
+        return Frame(height, width, data_depth_raw, data_depth_rgb, data_grayscale, data_amplitude, data_points, dataArray)
 
     def composeDistanceGrayscaleFrame(self, dataArray) :
         '''
