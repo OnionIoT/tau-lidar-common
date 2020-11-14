@@ -5,7 +5,7 @@ Common library for Onion Tau LiDAR Camera
 
 ## Main Features
 
-
+TODO: add very brief overview of the main features of the library
 
 ## Installation & Supported Versions
 
