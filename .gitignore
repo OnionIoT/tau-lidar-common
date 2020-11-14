@@ -1,0 +1,11 @@
+build/
+dist/
+*.egg-info/
+bin/
+lib/
+
+**/__pycache__/
+
+**/_build
+**/_static
+**/_templates
