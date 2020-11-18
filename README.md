@@ -1,4 +1,7 @@
 # tau-lidar-common
+
+[![Documentation Status](https://readthedocs.org/projects/taulidarcommon/badge/?version=latest)](https://taulidarcommon.readthedocs.io/en/latest/?badge=latest)
+
 Common library for Onion Tau LiDAR Camera
 
 ![Onion Tau Lidar Camera](./docs/img/onion-tau-lidar-camera-00.png)
