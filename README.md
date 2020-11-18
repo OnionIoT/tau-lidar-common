@@ -20,9 +20,9 @@ python -m pip install TauLidarCommon
 
 Supports Python 3.6.1+
 
-## API Reference & Documentation
+## API Reference & Documentation on [ReadTheDocs](https://taulidarcommon.readthedocs.io/)
 
-Documentation & API reference can be found online: TODO
+Documentation & API reference can be found online: https://taulidarcommon.readthedocs.io/
 
 ## Contributing to Development
 
