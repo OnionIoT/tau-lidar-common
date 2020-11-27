@@ -15,14 +15,25 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 
+# -- Python module information -----------------------------------------------
+
+# get key package details from __version__.py file
+
+about = {}  # type: ignore
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, '..', 'TauLidarCommon', '__version__.py')) as f:
+    exec(f.read(), about)
+
+
 # -- Project information -----------------------------------------------------
 
-project = 'TauLidarCommon'
+project = about['__title__']
 copyright = '2020, Onion Corporation'
-author = 'Onion Corporation'
+author = about['__author__']
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+version = about['__version__']
+release = version
 
 
 # -- General configuration ---------------------------------------------------
