@@ -37,6 +37,14 @@ How you can get involved:
 
    feedback
 
+
+Links
+-----
+
+* Source code available on `GitHub <https://github.com/OnionIoT/tau-lidar-common/>`_
+* Visit `<https://TauLidar.com>`_ to learn more about the Onion Tau LiDAR Camera
+* For a Python API to interact with the Tau LiDAR Camera hardware, see the `TauLidarCamera library <https://taulidarcamera.readthedocs.io/>`_
+
 Indices and tables
 ==================
 
