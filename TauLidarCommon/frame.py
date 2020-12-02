@@ -22,14 +22,22 @@ class Frame :
     data_depth: 
         depth map data, one dimensional array of float32. Example of converting to numpy array (opencv one channel Mat):
         mat_depth_map = np.frombuffer(frame.data_depth, dtype=np.float32, count=-1, offset=0).reshape(frame.height, frame.width)
+
     data_depth_rgb: 
-        depth color map data, one dimensional array of uint16. Example of converting to numpy array (opencv three channel Mat):
+        depth color map data, three dimensional array of uint8. Example of converting to numpy array (opencv three channel Mat):
         mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
         mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
+
     data_grayscale: 
-        depth map data, one dimensional array of uint16. Example of converting to numpy array (opencv one channel Mat):
+        grayscale data, one dimensional array of uint8. Example of converting to numpy array (opencv one channel Mat):
         mat_grayscale = np.frombuffer(frame.data_grayscale, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width)
         mat_grayscale = mat_grayscale.astype(np.uint8)
+
+    data_amplitude: 
+        amplitude data, one dimensional array of uint16. Example of converting to numpy array (opencv one channel Mat):
+        mat_amplitude = np.frombuffer(frame.data_amplitude, dtype=np.float32, count=-1, offset=0).reshape(frame.height, frame.width)
+        mat_amplitude = mat_amplitude.astype(np.uint8)
+
     points_3d: 
         3D points: list of unorganized 3D points. 
     '''
