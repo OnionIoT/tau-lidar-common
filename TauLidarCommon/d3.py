@@ -180,8 +180,8 @@ class _PointDistanceAmplitudeMasked(Structure):
     _pack_ = 1
     _fields_ = [("distanceAmplitude", c_uint32)]
 
-ANGLE_X      = 50.0
-ANGLE_Y      = 18.75
+ANGLE_X      = 80.0 #50.0
+ANGLE_Y      = 30.0 #18.75
 
 THETA_H = math.pi * ANGLE_X / 180.0
 ALPHA_H = (math.pi - THETA_H) / 2
