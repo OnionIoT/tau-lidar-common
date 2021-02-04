@@ -4,11 +4,11 @@
 
 Common library for Onion Tau LiDAR Camera
 
-![Onion Tau Lidar Camera](./docs/img/onion-tau-lidar-camera-00.png)
+![Onion Tau Lidar Camera](https://github.com/OnionIoT/tau-lidar-common/blob/master/docs/img/onion-tau-lidar-camera-00.png)
 
 ## Main Features
 
-TODO: add very brief overview of the main features of the library
+* Methods and objects to compose, colour, and store 3D frames based on collected data
 
 ## Installation & Supported Versions
 
