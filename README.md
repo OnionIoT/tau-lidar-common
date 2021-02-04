@@ -4,7 +4,7 @@
 
 Common library for Onion Tau LiDAR Camera
 
-![Onion Tau Lidar Camera](https://github.com/OnionIoT/tau-lidar-common/blob/master/docs/img/onion-tau-lidar-camera-00.png)
+![Onion Tau Lidar Camera](https://github.com/OnionIoT/tau-lidar-common/raw/master/docs/img/onion-tau-lidar-camera-00.png)
 
 ## Main Features
 
