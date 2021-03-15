@@ -11,22 +11,21 @@ class ColorMode(Enum):
 class Color :
     '''
     RGB color.
-    
+
     Attributes
     ----------
-    r : 
+    r :
         red.
-    g : 
+    g :
         green.
-    b : 
+    b :
         blue.
     '''
-    def __init__(self) : 
+    def __init__(self) :
         self.r = 0
         self.g = 0
         self.b = 0
-    def __init__(self, r_, g_, b_) : 
+    def __init__(self, r_, g_, b_) :
         self.r = r_
         self.g = g_
         self.b = b_
-
