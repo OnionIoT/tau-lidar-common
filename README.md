@@ -18,7 +18,7 @@ Install using pip on the command line:
 python -m pip install TauLidarCommon
 ```
 
-Supports Python 3.6.1+
+Supports Python 3.7+
 
 ## API Reference & Documentation on [ReadTheDocs](https://taulidarcommon.readthedocs.io/)
 
