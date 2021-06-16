@@ -40,6 +40,9 @@ class Frame :
 
     points_3d: 
         3D points: list of unorganized 3D points. 
+        [X, Y, Z, R, G, B]
+        XYZ: 3D coordinates in sensor coordinates reference system, unit is meter.
+        RGB: pseudo RGB color values in a distance range based on smallest and largest Z values set by Camera.setRange(Z1, Z2).
     '''
     def __init__(self, _height, _width, _data_depth, _data_depth_rgb, _data_grayscale, _data_amplitude, _points_3d, _data) :
         self.height           = _height
